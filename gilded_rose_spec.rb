@@ -41,31 +41,32 @@ describe GildedRose do
       # [ number of updates, expected sell in, expected quality ]
       [[1, 9, 19],
        [10, 0, 10],
-       [11, -1, 8],
+       [11, -1, 8], # Degrades twice as fast after sell in hits 0
        [12, -2, 6],
-       [16, -6, 0]]
+       [16, -6, 0]] # Min quality is 0
   end
 
   context "the Aged Brie" do
     it_behaves_like "an item", "Aged Brie",
       [[1, 1, 1],
        [2, 0, 2],
-       [3, -1, 4],
+       [3, -1, 4], # Quality goes up by 2 after sell in hits 0
        [51, -49, 50],
-       [52, -50, 50]]
+       [52, -50, 50]] # Max quality is 50
   end
 
   context "the Elixir of the Mongoose" do
     it_behaves_like "an item", "Elixir of the Mongoose",
       [[1, 4, 6],
        [2, 3, 5],
+       [5, 0, 2],
        [6, -1, 0],
        [7, -2, 0]]
   end
 
   context "the Sulfuras, Hand of Ragnaros" do
     it_behaves_like "an item", "Sulfuras, Hand of Ragnaros",
-      [[1, 0, 80],
+      [[1, 0, 80], # Quality and sell in never changes
        [2, 0, 80],
        [100, 0, 80]]
   end
@@ -73,15 +74,15 @@ describe GildedRose do
   # Good luck with this one.
   context "the Backstage passes blah blah" do
     it_behaves_like "an item", "Backstage passes to a TAFKAL80ETC concert",
-      [[1, 14, 21],
+      [[1, 14, 21], # Quality increases by 1 each day until 10 days left
        [2, 13, 22],
        [5, 10, 25],
-       [6, 9, 27],
+       [6, 9, 27], # Quality increases by 2 each day until 5 days left
        [7, 8, 29],
-       [11, 4, 38],
+       [11, 4, 38], # Quality increase by 3 each day until 0 days left
        [12, 3, 41],
        [15, 0, 50],
-       [16, -1, 0],
+       [16, -1, 0], # Quality goes to 0 after sell in hits 0
        [100, -85, 0]]
   end
 
